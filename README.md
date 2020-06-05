@@ -6,8 +6,8 @@ File                Use                                                 Required
 - path.py           Define where your files are
 - app.py            Local tinder application                            Tkinter, Pillow
 - bio_merger.py     Merges bios for faster text analisation             
-- bio_length.py	    Plots bio length distribution						matplotlib
-- histogram.py		Interactive histograms								Tkinter
+- bio_length.py     Plots bio length distribution                       matplotlib
+- histogram.py      Interactive histograms                              Tkinter
 
 Start with setting up your path in path.py.
 Python 3+ is expected for running any of the files.
