@@ -162,16 +162,18 @@ class Reader:
     # extract values from plaintext profile
     def extract_data(self, text):
         lines = text.split("\n")
-        name = lines[0]
-        n_pictures = int(lines[1])
+        n_pictures = int(lines[0])
         bio = ""
         age = 0
-        for line in lines[2:]:
+        for line in lines[1:]:
             if not line.startswith("birth date: "):
                 bio += line + "\n"
             else:
-                # TODO calculate age
-                
+                try:
+                    year = int(line.split("birth date: ")[1][:4])
+                    age = 2020-year
+                except ValueError:
+                    print(line)
                 break
         bio = bio[len("bio: "):-1]
         return len(bio), age, n_pictures
@@ -179,26 +181,34 @@ class Reader:
     def read(self):
         out = []
         try:
-            with open(Path().out+"/men_merged_bios.txt") as bios_file:
+            wrong_records = 0
+            with open(Path().out+"/men_merged_bios.txt", encoding='utf-8', errors='replace') as bios_file:
                 profile = ""
                 for line in bios_file:
                     if line == ";\n":
                         length, age, n_pictures = self.extract_data(profile)
-                        out.append(self.make_record(length, 0, age, n_pictures))
+                        if 18<=age<120:
+                            out.append(self.make_record(length, 0, age, n_pictures))
+                        else:
+                            wrong_records += 1
                         profile = ""
                         #quit()
                     else:
                         profile += line
-            with open(Path().out+"/women_merged_bios.txt") as bios_file:
+            with open(Path().out+"/women_merged_bios.txt", encoding='utf-8', errors='replace') as bios_file:
                 profile = ""
                 for line in bios_file:
                     if line == ";\n":
                         length, age, n_pictures = self.extract_data(profile)
-                        out.append(self.make_record(length, 1, age, n_pictures))
+                        if 18<=age<120:
+                            out.append(self.make_record(length, 1, age, n_pictures))
+                        else:
+                            wrong_records += 1
                         profile = ""
                         #quit()
                     else:
                         profile += line
+            print('wrong records: ', wrong_records)
         except FileNotFoundError:
             print("merged bios not found, run bio_merger.py then try again")
             quit()
@@ -210,9 +220,12 @@ class Reader:
             out.append(self.make_record(length, gender, age, n_pics))
         return out
 
-i_length = [(0, 1), (1, 5), (5, 10), (10, 50), (50, 500), (500, 1000)]
-i_age = [(18, 23), (21, 28), (28, 33), (33, 38), (38, 43), (43, 48), (48, 53), (53, 58), (58, 63), (63, 1000)]
-i_pictures = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 100)]
+i_length = [(0, 1), (1, 10), (10, 20), (20, 50), (50, 100), (100, 200), (200, 500), (500, 10000)]
+n_length = ["0", "1-9", "10-19", "20-49", "50-99", "100-199", "200-499", "500+"]
+i_age = [(18, 23), (23, 28), (28, 33), (33, 38), (38, 43), (43, 48), (48, 120)]
+n_age = ["18-22", "23-27", "28-32", "33-37", "38-42", "43-47", "48+"]
+i_pictures = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9), (9, 100)]
+n_pictures = [str(i) for i in range(9)]+["9+"]
 reader = Reader(i_length, i_age, i_pictures)
 records = reader.read()
 doc = Document(records)
@@ -221,11 +234,11 @@ win = Tk()
 win.title("Interactive histograms")
 title = Label(win, text="Interactive histograms\n", font=("Times", 30, "bold"))
 title.grid(row=0, column=0, columnspan=2)
-hist = Histogram(win, i_length, 500, 300, "Character count", doc, 0)
+hist = Histogram(win, n_length, 500, 300, "Character count", doc, 0)
 hist.grid(row=1, column=0)
 hist2 = Histogram(win, ["Men", "Women"], 500, 300, "Gender", doc, 1)
 hist2.grid(row=1, column=1)
-hist3 = Histogram(win, i_age, 500, 300, "Age", doc, 2)
+hist3 = Histogram(win, n_age, 500, 300, "Age", doc, 2)
 hist3.grid(row=2, column=0)
-hist4 = Histogram(win, i_pictures, 500, 300, "Number of pictures", doc, 3)
+hist4 = Histogram(win, n_pictures, 500, 300, "Number of pictures", doc, 3)
 hist4.grid(row=2, column=1)

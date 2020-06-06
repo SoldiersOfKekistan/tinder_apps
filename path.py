@@ -48,4 +48,4 @@ class Path:
             "E:/Tinder/TinderData/Women/staging15"
             ]
         # folder for output and temporary files
-        self.out = "E:/Tinder/TinderData"
+        self.out = "E:/Tinder/TinderApps"

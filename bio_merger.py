@@ -10,24 +10,23 @@ from path import Path
 
 def extract_profile(path):
     n_pictures = max(0, len(os.listdir(path))-1)
-    name = path.split("/")[-1].split("_")[0]
-    text = name+"\n"+str(n_pictures)+"\n"
-    try:
-        with open(path+"/info.txt", "r") as info:
-            text += info.read().lower().replace(";", " ")
-    except FileNotFoundError:
-        pass
+    text = str(n_pictures)+"\n"
+    with open(path+"/info.txt", "r", encoding='utf-8', errors='replace') as info:
+        text += info.read().lower().replace(";", " ")
     return text
 
 def merge_bios(directories, filename):
     finished = 0
     for url in directories:
         profiles = os.listdir(url)
-        with open(filename, "a") as biofile:
+        with open(filename, "a", encoding='utf-8', errors='replace') as biofile:
             for i, p in enumerate(profiles):
                 path = url+"/"+p
-                bio = extract_profile(path)
-                biofile.write(bio+";\n")
+                try:
+                    bio = extract_profile(path)
+                    biofile.write(bio+";\n")
+                except FileNotFoundError:
+                    pass
                 print(str(i)+"/"+str(len(profiles))+" profiles merged", end="\r")
         
         finished += len(profiles)
@@ -35,5 +34,5 @@ def merge_bios(directories, filename):
 
 men = Path().men
 women = Path().women
-merge_bios(women, "women_merged_bios.txt")
-merge_bios(men, "men_merged_bios.txt")
+merge_bios(women, Path().out+"/women_merged_bios.txt")
+merge_bios(men, Path().out+"/men_merged_bios.txt")

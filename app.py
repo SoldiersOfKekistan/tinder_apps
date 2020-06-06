@@ -12,6 +12,14 @@ from tkinter import *
 from PIL import Image, ImageTk
 import random
 
+"""
+To browse different folders, modify the root variable.
+.women   -> women's folder set in path.py
+.men     -> men's   folder set in path.py
+[number] -> number of directory to show
+"""
+root = Path().women[0]
+
 def show_profile():
     global win, current_image, images, image_index, path, name_label, bio_label, pic_label
     image_index = 0
@@ -27,7 +35,7 @@ def show_profile():
     name = path.split("/")[-1].split("_")[0]
     name_label.configure(text=name)
     bio_text = ""
-    with open(path+"/info.txt", "r", encoding="utf-8") as info:
+    with open(path+"/info.txt", "r", encoding="utf-8", errors='replace') as info:
         bio_text = info.read()
     bio_label.configure(text=bio_text)
 
@@ -75,9 +83,7 @@ bio_label = Label(win)
 bio_label.pack()
 display = (1000, 600)
 
-profiles = []
-for p in (Path().men+Path.women):
-    profiles += os.listdir(p)
+profiles = os.listdir(root)
 random.shuffle(profiles)
 current_image = 0
 image_index = 0

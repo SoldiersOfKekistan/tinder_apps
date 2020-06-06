@@ -14,10 +14,9 @@ Python 3+ is expected for running any of the files.
 Further information and manuals are in the files.
 
 Planned features:
-- age of user statistics
 - word frequency analisis
 - word frequency analisis targeting swearing and sexual words
-- picture statistics targeting number of pictures and faces found
+- picture statistics targeting number of faces found
 - neural network to recognise specific groups of people
 - GAN neural network to generate faces from specific groups of people
 
