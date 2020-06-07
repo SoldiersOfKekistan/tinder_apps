@@ -9,6 +9,7 @@ Colors and their meanings:
 
 from tkinter import *
 from path import Path
+from helper_functions import extract_data
 import random
 """
 Widget to display an interactive histogram. View in the Document-View architecture.
@@ -159,24 +160,6 @@ class Reader:
         a = self.get_interval(age, self.i_age)
         p = self.get_interval(n_pictures, self.i_pictures)
         return (l, gender, a, p)
-    # extract values from plaintext profile
-    def extract_data(self, text):
-        lines = text.split("\n")
-        n_pictures = int(lines[0])
-        bio = ""
-        age = 0
-        for line in lines[1:]:
-            if not line.startswith("birth date: "):
-                bio += line + "\n"
-            else:
-                try:
-                    year = int(line.split("birth date: ")[1][:4])
-                    age = 2020-year
-                except ValueError:
-                    print(line)
-                break
-        bio = bio[len("bio: "):-1]
-        return len(bio), age, n_pictures
     # reads all the data
     def read(self):
         out = []
@@ -186,7 +169,7 @@ class Reader:
                 profile = ""
                 for line in bios_file:
                     if line == ";\n":
-                        length, age, n_pictures = self.extract_data(profile)
+                        length, age, n_pictures = extract_data(profile)
                         if 18<=age<120:
                             out.append(self.make_record(length, 0, age, n_pictures))
                         else:
