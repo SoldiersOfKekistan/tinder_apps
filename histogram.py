@@ -5,6 +5,7 @@ Colors and their meanings:
     Blue   - All records shown. Category is deselected.
     Red    - All records shown. Category is selected.
     Orange - Proportion of selected records in the category.
+Uses merged bio files, so if you don't have them already, run bio_merger.py.
 """
 
 from tkinter import *
@@ -169,9 +170,9 @@ class Reader:
                 profile = ""
                 for line in bios_file:
                     if line == ";\n":
-                        length, age, n_pictures = extract_data(profile)
+                        bio, age, n_pictures = extract_data(profile)
                         if 18<=age<120:
-                            out.append(self.make_record(length, 0, age, n_pictures))
+                            out.append(self.make_record(len(bio), 0, age, n_pictures))
                         else:
                             wrong_records += 1
                         profile = ""
@@ -182,9 +183,9 @@ class Reader:
                 profile = ""
                 for line in bios_file:
                     if line == ";\n":
-                        length, age, n_pictures = self.extract_data(profile)
+                        bio, age, n_pictures = self.extract_data(profile)
                         if 18<=age<120:
-                            out.append(self.make_record(length, 1, age, n_pictures))
+                            out.append(self.make_record(len(bio), 1, age, n_pictures))
                         else:
                             wrong_records += 1
                         profile = ""

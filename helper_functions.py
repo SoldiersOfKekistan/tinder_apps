@@ -21,4 +21,4 @@ def extract_data(text):
                 print(line)
             break
     bio = bio[len("bio: "):-1]
-    return len(bio), age, n_pictures
+    return bio, age, n_pictures

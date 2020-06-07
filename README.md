@@ -1,4 +1,4 @@
-version: 1.0
+version: 1.1(not tested yet, please use "First stable release")
 These are my analiser and helper files for the Tinder dataset.
 Currently includes:
 
@@ -9,6 +9,7 @@ File                Use                                                 Required
 - bio_length.py     Plots bio length distribution                       matplotlib
 - histogram.py      Interactive histograms                              Tkinter
 - avg.py            Calculating average and median
+- wc.py             Counts frequency of words                           nltk, nltk.data
 
 Start with setting up your path in path.py.
 Python 3+ is expected for running any of the files.

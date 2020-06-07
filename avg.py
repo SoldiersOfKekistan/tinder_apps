@@ -1,5 +1,6 @@
 """
 Program to calculate average and median.
+Uses merged bio files, so if you don't have them already, run bio_merger.py.
 """
 from path import Path
 from helper_functions import extract_data
@@ -10,11 +11,11 @@ def read(file, list_ages, list_pictures, list_lengths):
             profile = ""
             for line in bios_file:
                 if line == ";\n":
-                    length, age, n_pictures = self.extract_data(profile)
+                    bio, age, n_pictures = self.extract_data(profile)
                     if 18<=age<120:
                         list_ages[age] += 1
                     list_pictures[n_pictures] += 1
-                    list_lengths[length] += 1
+                    list_lengths[len(bio)] += 1
                     profile = ""
                 else:
                     profile += line
