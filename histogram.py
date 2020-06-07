@@ -212,12 +212,6 @@ class Reader:
         except FileNotFoundError:
             print("merged bios not found, run bio_merger.py then try again")
             quit()
-        for i in range(1000):
-            gender = random.randrange(2)
-            age = random.randrange(18, 65)
-            length = random.randrange(501)
-            n_pics = random.randrange(7)
-            out.append(self.make_record(length, gender, age, n_pics))
         return out
 
 i_length = [(0, 1), (1, 10), (10, 20), (20, 50), (50, 100), (100, 200), (200, 500), (500, 10000)]

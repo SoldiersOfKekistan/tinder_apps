@@ -8,6 +8,7 @@ File                Use                                                 Required
 - bio_merger.py     Merges bios for faster text analisation             
 - bio_length.py     Plots bio length distribution                       matplotlib
 - histogram.py      Interactive histograms                              Tkinter
+- avg.py            Calculating average and median
 
 Start with setting up your path in path.py.
 Python 3+ is expected for running any of the files.
