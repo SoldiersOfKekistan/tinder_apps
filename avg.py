@@ -45,8 +45,8 @@ def get_stats(_list):
 list_ages = [0 for i in range(120)]
 list_pictures = [0 for i in range(100)]
 list_lengths = [0 for i in range(10000)]
-#read(Path().out+"/men_merged_bios.txt", list_ages, list_pictures, list_lengths)
-#read(Path().out+"/women_merged_bios.txt", list_ages, list_pictures, list_lengths)
+read(Path().out+"/men_merged_bios.txt", list_ages, list_pictures, list_lengths)
+read(Path().out+"/women_merged_bios.txt", list_ages, list_pictures, list_lengths)
 avg_age, median_age = get_stats(list_ages)
 avg_pictures, median_pictures = get_stats(list_ages)
 avg_lengths, median_lengths = get_stats(list_ages)
