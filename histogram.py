@@ -183,13 +183,12 @@ class Reader:
                 profile = ""
                 for line in bios_file:
                     if line == ";\n":
-                        bio, age, n_pictures = self.extract_data(profile)
+                        bio, age, n_pictures = extract_data(profile)
                         if 18<=age<120:
                             out.append(self.make_record(len(bio), 1, age, n_pictures))
                         else:
                             wrong_records += 1
                         profile = ""
-                        #quit()
                     else:
                         profile += line
             print('wrong records: ', wrong_records)
@@ -198,8 +197,8 @@ class Reader:
             quit()
         return out
 
-i_length = [(0, 1), (1, 10), (10, 20), (20, 50), (50, 100), (100, 200), (200, 500), (500, 10000)]
-n_length = ["0", "1-9", "10-19", "20-49", "50-99", "100-199", "200-499", "500+"]
+i_length = [(0, 1), (1, 25), (25, 50), (50, 100), (100, 200), (200, 300), (300, 10000)]
+n_length = ["0", "1-24", "25-49", "50-99", "100-199", "200-299", "300+"]
 i_age = [(18, 23), (23, 28), (28, 33), (33, 38), (38, 43), (43, 48), (48, 120)]
 n_age = ["18-22", "23-27", "28-32", "33-37", "38-42", "43-47", "48+"]
 i_pictures = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9), (9, 100)]
