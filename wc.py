@@ -51,7 +51,7 @@ def sort_dict(d):
         out.append((key, d[key]))
     out.sort(key = lambda x: x[1], reverse=True)
     return out
-        
+
 men = get_words(Path().out+"/men_merged_bios.txt")
 women = get_words(Path().out+"/women_merged_bios.txt")
 merged = merge_dicts(men, women)
