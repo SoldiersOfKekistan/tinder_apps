@@ -1,0 +1,18 @@
+# This is a file where you can write filters for selected groups of words.
+# Follow the example given.
+# Sometimes nltk messes up the endings, so keep in mind, that your filter
+# needs to be "messed up" the same way to work.
+# Use hashtag to comment
+#
+category:Sex
+pussy
+puss
+dick
+dildo
+cock
+ass
+fuck
+category:Swearing
+fuck
+bitch
+ass

@@ -7,10 +7,10 @@ Uses merged bio files, so if you don't have them already, run bio_merger.py.
 
 from nltk.stem.snowball import SnowballStemmer
 from path import Path
-from helper_functions import extract_data
+from helper_functions import extract_data, dict_to_sorted_array
 
 def replace_separators(text):
-    separators = ['.', ',', ';', ':']
+    separators = ['.', ',', ';', ':', '/']
     for sep in separators:
         text = text.replace(sep, ' ')
 
@@ -53,20 +53,13 @@ def merge_dicts(d1, d2):
             out[k] = d2[k]
     return out
 
-def sort_dict(d):
-    out = []
-    for key in d.keys():
-        out.append((key, d[key]))
-    out.sort(key = lambda x: x[1], reverse=True)
-    return out
-
 men = get_words(Path().out+"/men_merged_bios.txt")
 women = get_words(Path().out+"/women_merged_bios.txt")
 merged = merge_dicts(men, women)
 
-men_list = sort_dict(men)
-women_list = sort_dict(women)
-merged_list = sort_dict(merged)
+men_list = dict_to_sorted_array(men)
+women_list = dict_to_sorted_array(women)
+merged_list = dict_to_sorted_array(merged)
 
 write_list(Path().out+"/men_words.txt", men_list)
 write_list(Path().out+"/women_words.txt", women_list)

@@ -22,3 +22,11 @@ def extract_data(text):
             break
     bio = bio[len("bio: "):-1]
     return bio, age, n_pictures
+
+# converts dict to sorted array
+def dict_to_sorted_array(d):
+    out = []
+    for key in d.keys():
+        out.append((key, d[key]))
+    out.sort(key = lambda x: x[1], reverse=True)
+    return out
