@@ -1,10 +1,8 @@
 """
 Counts words from filters in filters.txt.
-Something is not right with the nltk word stemmer so watch out. 
 """
 
 from path import Path
-from nltk.stem.snowball import SnowballStemmer
 from helper_functions import dict_to_sorted_array
 
 class Filter:
@@ -21,9 +19,8 @@ class Filter:
         return filtered
 
 def read_filters():
-    stemmer = SnowballStemmer("english")
+    all_filters = []
     with open("filters.txt") as filter_file:
-        all_filters = []
         current = Filter("Unnamed filter")
         for line in filter_file:
             if line[0] == "#":
@@ -34,8 +31,7 @@ def read_filters():
                 all_filters.append(current)                
             else:
                 word = line[:-1]
-                root = stemmer.stem(word)
-                current.add_word(root)
+                current.add_word(word)
     return all_filters
 
 def read_words(file):

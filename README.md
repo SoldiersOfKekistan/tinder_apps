@@ -1,4 +1,4 @@
-version: 1.1(not tested yet, please use "First stable release")
+version: 1.1.1
 These are my analiser and helper files for the Tinder dataset.
 Currently includes:
 
@@ -11,14 +11,14 @@ File                Use                                                 Required
 - avg.py            Calculating average and median                      
 - wc.py             Counts frequency of words                           nltk, nltk.data(popular)
 - filters.txt       Filters for swear and sexual words                  
-- filtered_words.py Selects swear and sexual words                      
+- filtered_words.py Selects words with given filters                    
 
 Start with setting up your path in path.py.
 Python 3+ is expected for running any of the files.
 Further information and manuals are in the files.
 
 Planned features:
-- word frequency analisis targeting swearing and sexual words
+- histograms for filtered words
 - picture statistics targeting number of faces found
 - neural network to recognise specific groups of people
 - GAN neural network to generate faces from specific groups of people
